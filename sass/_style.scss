@@ -1,0 +1,253 @@
+@use "sass:math";
+
+// RESETS
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  border: none;
+}
+
+// PIXEL -> REM (FUNC)
+$html-font-size: 16px;
+@function stripUnit($value) {
+  @return math.div($value, ($value * 0 + 1));
+}
+@function rem($pxValue) {
+  @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
+}
+
+// VARIABLES
+
+$dark-grayish-blue: hsl(217, 19%, 35%);
+$desaturated-dark-blue: hsl(214, 17%, 51%);
+$grayish-blue: hsl(212, 23%, 69%);
+$light-grayish-blue: hsl(210, 46%, 95%);
+
+// STYLING
+body {
+  font-family: "Manrope", sans-serif;
+  font-size: rem(18px);
+  font-weight: 400;
+  line-height: 1.1;
+
+  background-color: $light-grayish-blue;
+  min-height: 100vh;
+
+  display: grid;
+  place-content: center;
+
+  @include respond(phone) {
+    margin: 0 rem(20px);
+  }
+}
+
+img {
+  max-width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.container {
+  max-width: rem(1100px);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: rem(40px);
+  border-radius: 14px;
+  overflow: hidden;
+
+  justify-content: center;
+  align-items: center;
+
+  background-color: white;
+
+  &__info-box {
+    width: rem(450px);
+
+    @include respond(phone) {
+      width: rem(380px);
+      padding: rem(20px) rem(30px);
+    }
+
+    &__text {
+      color: $desaturated-dark-blue;
+      margin-bottom: rem(40px);
+      font-size: rem(16px);
+      line-height: 1.4;
+    }
+  }
+
+  @include respond(phone) {
+    grid-template-columns: 1fr;
+    gap: rem(20px);
+  }
+}
+
+.heading {
+  &__primary {
+    font-size: rem(24px);
+    margin-bottom: rem(22px);
+    color: $dark-grayish-blue;
+    line-height: 1.3;
+
+    @include respond(phone) {
+      font-size: rem(20px);
+    }
+  }
+}
+
+.author {
+  &__info-box {
+    display: grid;
+    grid-template-columns: auto auto 1fr;
+    align-items: center;
+  }
+
+  &__name {
+    color: $dark-grayish-blue;
+    font-size: rem(15px);
+  }
+
+  &__date {
+    color: $grayish-blue;
+    font-size: rem(15px);
+  }
+
+  &__img-box {
+    margin-right: rem(-100px);
+
+    & img {
+      width: 30%;
+      border-radius: 99px;
+    }
+  }
+
+  &__share-btn {
+    position: relative;
+    justify-self: end;
+    background-color: $light-grayish-blue;
+    border-radius: 50%;
+    padding: rem(16px);
+    cursor: pointer;
+    transition: all 0.3s;
+
+    & img {
+      width: 17px;
+      height: 15px;
+    }
+
+    &:hover {
+      background-color: $dark-grayish-blue;
+
+      & img {
+        filter: brightness(100);
+      }
+    }
+  }
+
+  &__share-popup {
+    display: flex;
+    transition: opacity 0.3s ease-in-out;
+
+    gap: rem(10px);
+    position: absolute; /* Use absolute positioning */
+    background-color: $dark-grayish-blue;
+    align-items: center;
+
+    top: 55%; /* Position below the share button */
+    left: 77.5%;
+    transform: translateX(-50%);
+
+    padding: rem(12px) rem(28px); /* Adjusted padding */
+    border-radius: 8px;
+
+    & span {
+      font-size: rem(12px);
+      color: $grayish-blue;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+
+      @include respond(phone) {
+        display: none;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 100%; /* Position the triangle above the popup */
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: rem(8px);
+      border-style: solid;
+      border-color: $dark-grayish-blue transparent transparent transparent;
+
+      @include respond(phone) {
+        top: 99%;
+      }
+    }
+
+    @include respond(phone) {
+      top: 85%;
+      left: 77%;
+
+      padding: rem(8px) rem(8px);
+    }
+  }
+
+  &__share-icons {
+    display: flex;
+    gap: rem(14px);
+
+    @include respond(phone) {
+      flex-direction: column;
+    }
+
+    &-icon {
+      height: rem(15px);
+    }
+  }
+}
+
+.hidden {
+  // display: none;
+  opacity: 0;
+}
