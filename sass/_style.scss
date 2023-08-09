@@ -188,15 +188,15 @@ img {
     transition: opacity 0.3s ease-in-out;
 
     gap: rem(10px);
-    position: absolute; /* Use absolute positioning */
+    position: absolute;
     background-color: $dark-grayish-blue;
     align-items: center;
 
-    top: 55%; /* Position below the share button */
+    top: 55%;
     left: 77.5%;
     transform: translateX(-50%);
 
-    padding: rem(12px) rem(28px); /* Adjusted padding */
+    padding: rem(12px) rem(28px);
     border-radius: 8px;
 
     & span {
@@ -213,7 +213,7 @@ img {
     &::after {
       content: "";
       position: absolute;
-      top: 100%; /* Position the triangle above the popup */
+      top: 100%;
       left: 50%;
       transform: translateX(-50%);
       border-width: rem(8px);
@@ -248,6 +248,5 @@ img {
 }
 
 .hidden {
-  // display: none;
   opacity: 0;
 }
